@@ -64,7 +64,7 @@
       display: grid;
       place-items: center;
       padding: var(--gutter);
-      position: relative;
+      /* position: relative; đã được gỡ bỏ vì không cần thiết */
     }
     .auth-card {
       width: 100%;
@@ -76,7 +76,12 @@
       box-shadow: var(--shadow-strong);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
-      position: absolute;
+
+      /* === THAY ĐỔI QUAN TRỌNG === */
+      /* Thuộc tính position: absolute; đã được xóa bỏ */
+      grid-area: 1 / 1; /* Thêm thuộc tính này để các thẻ chồng lên nhau chính xác */
+      /* =========================== */
+
       transition: transform .4s ease-in-out, opacity .4s ease-in-out;
     }
     .auth-card.hidden {
