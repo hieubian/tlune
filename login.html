@@ -64,7 +64,6 @@
       display: grid;
       place-items: center;
       padding: var(--gutter);
-      /* position: relative; đã được gỡ bỏ vì không cần thiết */
     }
     .auth-card {
       width: 100%;
@@ -76,12 +75,7 @@
       box-shadow: var(--shadow-strong);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
-
-      /* === THAY ĐỔI QUAN TRỌNG === */
-      /* Thuộc tính position: absolute; đã được xóa bỏ */
-      grid-area: 1 / 1; /* Thêm thuộc tính này để các thẻ chồng lên nhau chính xác */
-      /* =========================== */
-
+      grid-area: 1 / 1;
       transition: transform .4s ease-in-out, opacity .4s ease-in-out;
     }
     .auth-card.hidden {
@@ -193,6 +187,7 @@
         border: 1px solid rgba(0, 122, 255, 0.4);
         text-align: center;
         font-weight: 500;
+        white-space: nowrap; /* Fix line break */
     }
     .notice-banner.show {
         display: block;
@@ -306,32 +301,21 @@
     loginCard.classList.remove('hidden');
   });
   
-  // === BẮT ĐẦU PHẦN DUY NHẤT ĐƯỢC THAY ĐỔI ===
-  // Logic cũ của bạn đã bị thay thế bằng logic mới đúng đắn hơn dưới đây.
   responseActionBtn.addEventListener('click', () => {
     responseCard.classList.add('hidden');
     const actionText = responseActionBtn.innerText;
 
-    // Nếu nội dung nút là "Đi đến Đăng nhập", có nghĩa là đăng ký đã thành công.
-    // Vì vậy, chúng ta sẽ hiển thị thẻ đăng nhập.
     if (actionText === 'Đi đến Đăng nhập') {
       loginCard.classList.remove('hidden');
     } 
-    // Nếu tiêu đề của thông báo có chứa chữ "Đăng ký" (ví dụ: "Đăng ký thất bại"),
-    // có nghĩa là đã có lỗi xảy ra với form đăng ký.
-    // Vì vậy, chúng ta quay lại thẻ đăng ký.
     else if (document.getElementById('responseTitle').innerText.includes('Đăng ký')) {
       registerCard.classList.remove('hidden');
     }
-    // Đối với tất cả các trường hợp khác (ví dụ: "Đăng nhập thất bại"),
-    // chúng ta sẽ quay lại thẻ đăng nhập.
     else {
       loginCard.classList.remove('hidden');
     }
   });
-  // === KẾT THÚC PHẦN DUY NHẤT ĐƯỢC THAY ĐỔI ===
 
-  // === BỔ SUNG PHẦN XỬ LÝ ĐĂNG NHẬP BỊ THIẾU ===
   const loginForm = document.getElementById('loginForm');
   loginForm.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -349,10 +333,13 @@
     .then(response => response.json())
     .then(data => {
       if (data.status === 'success') {
-        // Nếu thành công, chuyển hướng về trang chủ
-        window.location.href = data.redirect || 'index.html';
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('notice') === 'upload') {
+          window.location.href = 'upload.html';
+        } else {
+          window.location.href = data.redirect || 'index.html';
+        }
       } else {
-        // Nếu thất bại, hiển thị thông báo lỗi
         loginCard.classList.add('hidden');
         document.getElementById('responseTitle').innerHTML = 'Đăng nhập thất bại';
         document.getElementById('responseMessage').innerHTML = data.message;
@@ -369,7 +356,6 @@
       responseCard.classList.remove('hidden');
     })
     .finally(() => {
-        // Chỉ bật lại nút khi đăng nhập thất bại
         if(!responseCard.classList.contains('hidden') || loginForm.contains(submitButton)){
             submitButton.disabled = false;
             submitButton.innerHTML = originalButtonText;
@@ -377,7 +363,6 @@
     });
   });
 
-  // === Xử lý gửi form ĐĂNG KÝ bằng AJAX ===
   const registerForm = document.getElementById('registerForm');
   registerForm.addEventListener('submit', function(event) {
     event.preventDefault();

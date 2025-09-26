@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8"/>
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>tailieuUNETI</title>
 
@@ -30,8 +30,8 @@
       --text:#eaf2ff;
       --muted: rgba(255,255,255,0.78);
       --brand: #007aff;
-      --glass-border-strong: rgba(255,255,255,.14);
-      --shadow-strong: 0 14px 30px rgba(0,0,0,.32), 0 3px 8px rgba(0,0,0,.12);
+      --glass-border-strong: rgba(255,255,255,.2);
+      --shadow-strong: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
       --bg-img: url("assets/A.jpeg");
     }
     *{box-sizing:border-box}
@@ -64,7 +64,7 @@
     header{
       position: sticky; top: 0; z-index:1000; height:var(--header-h);
       border-bottom:1px solid var(--glass-border);
-      background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.06));
+      background: rgba(0,0,0,0.1);
       backdrop-filter: blur(10px) saturate(140%); -webkit-backdrop-filter: blur(10px) saturate(140%);
       transition: top 0.3s ease-in-out;
     }
@@ -85,24 +85,49 @@
     .btn-glass__label { line-height: 1; }
 
     .hero{min-height: calc(100svh - var(--header-h)); display:grid; place-items:center; padding-block: clamp(24px, 6vh, 56px);}
-    .hero-card { border-radius: var(--plate-r); border:1px solid var(--glass-border-strong); background: linear-gradient(to bottom right, rgba(255,255,255,.16), rgba(255,255,255,.06)); box-shadow: var(--shadow-strong); text-align:center; width:100%; padding: var(--s-3); }
+    
+    .hero-card { 
+        text-align:center; 
+        width:100%; 
+        padding: var(--s-3);
+        border-radius: var(--plate-r); 
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid var(--glass-border-strong);
+        backdrop-filter: blur(30px) saturate(160%);
+        -webkit-backdrop-filter: blur(30px) saturate(160%);
+        box-shadow: var(--shadow-strong);
+    }
+    
     .hero-card h1 { margin:0 0 10px; font-size: clamp(28px,5vw,46px) }
     .hero p{ margin:0 0 var(--s-2); max-width: 780px; margin-inline:auto; color: rgba(255,255,255,.92); font-weight:500 }
     
-    /* === THAY ĐỔI CHÍNH Ở ĐÂY === */
     .search{
       display:flex;
       gap: var(--s-1);
       width:100%;
-      /* Loại bỏ max-width và margin-inline để nó giãn ra toàn bộ chiều rộng */
     }
-    .search input{ flex:1; height: clamp(44px, 5.2vw, 52px); padding: 0 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.45); background: rgba(255,255,255,0.26); color:#fff; font-size: clamp(15px, 1.2vw, 17px); font-weight:550; backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%); box-shadow: 0 6px 18px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.55); outline:none; }
-    .search input::placeholder{ color: rgba(255,255,255,.55) }
+    .search input{ flex:1; height: clamp(44px, 5.2vw, 52px); padding: 0 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,.45); background: rgba(255,255,255,0.2); color:#fff; font-size: clamp(15px, 1.2vw, 17px); font-weight:500; backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%); box-shadow: 0 6px 18px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.4); outline:none; transition: all 0.2s ease; }
+    .search input:focus { border-color: var(--brand); background: rgba(255,255,255,0.3); }
+    .search input::placeholder{ color: rgba(255,255,255,.6) }
     .icon-btn{ width: clamp(44px, 5.2vw, 52px); height: clamp(44px, 5.2vw, 52px); border-radius: 999px; border:1px solid rgba(255,255,255,.35); background: var(--glass); color:var(--text); box-shadow: 0 6px 18px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.55); backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%); outline:none; cursor:pointer; }
     .icon-btn svg{ width: clamp(22px,3vw,28px); height: clamp(22px,3vw,28px); fill:currentColor }
 
     .tri{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--tile-gutter); margin-top: var(--s-3); width: 100%; }
-    .card{ display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: var(--s-2) var(--pad-card-h); min-height: clamp(150px, 20vw, 180px); border-radius: var(--tile-r); border: 1px solid var(--glass-border); background: var(--glass); box-shadow: var(--shadow); text-align:center; }
+    
+    .card { 
+        display: flex; flex-direction: column; justify-content: flex-start; align-items: center; 
+        padding: var(--s-2) var(--pad-card-h); min-height: clamp(150px, 20vw, 180px); text-align:center;
+        border-radius: var(--tile-r); 
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(25px) saturate(160%);
+        -webkit-backdrop-filter: blur(25px) saturate(160%);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.15); }
+
     .card h3{ margin: 0; font-size: clamp(16px, 1.4vw, 18px); letter-spacing:.3px; font-weight: 600; color: #fff; min-height: 2.5em; display: flex; align-items: center; justify-content: center; margin-bottom: var(--s-1); }
     .card p {margin:0; color:var(--muted); line-height: 1.5; max-width:28ch;}
 
@@ -119,29 +144,96 @@
     .more button{ background:transparent; color:var(--text); border:1px solid var(--glass-border); border-radius:999px; padding:10px 16px; cursor:pointer }
 
     .user-menu-container { position: relative; }
-    .user-menu-dropdown { display: none; position: absolute; top: calc(100% + 18px); right: 0; min-width: 240px; padding: 6px; z-index: 1100; background: rgba(245, 245, 247, 0.85); color: #1d1d1f; backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); border-radius: 14px; border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25); opacity: 0; transform: translateY(5px) scale(0.97); transform-origin: top right; transition: opacity .2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform .2s cubic-bezier(0.25, 0.46, 0.45, 0.94); pointer-events: none; }
-    .user-menu-dropdown.active { display: block; opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    
+    .user-menu-dropdown {
+        position: absolute; top: calc(100% + 16px); right: 0; min-width: 240px;
+        padding: 6px; z-index: 1100; background: rgba(245, 245, 247, 0.85);
+        color: #1d1d1f; backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%);
+        border-radius: 14px; border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        opacity: 0; visibility: hidden; transform: translateY(-10px) scale(0.95);
+        transform-origin: top right; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none;
+    }
+    .user-menu-dropdown.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); pointer-events: auto; }
     .user-menu-dropdown a { display: flex; align-items: center; gap: 12px; padding: 10px; color: #1d1d1f; text-decoration: none; border-radius: 9px; font-size: 0.9em; font-weight: 500; transition: background-color .2s ease; text-align: left; cursor: pointer; }
     .user-menu-dropdown a:hover { background-color: rgba(0, 0, 0, 0.05); }
     .user-menu-dropdown hr { border: none; height: 1px; background-color: rgba(0, 0, 0, 0.1); margin: 6px 4px; }
     
-    .auth-card { max-width: 420px; }
-    .auth-form { display: flex; flex-direction: column; gap: var(--s-2); }
+    .modal-overlay { 
+      position: fixed; inset: 0; 
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 2000; 
+      display: none; align-items: center; justify-content: center; 
+      opacity: 0; visibility: hidden; 
+      transition: opacity .3s ease, visibility .3s ease; 
+      padding: var(--gutter);
+    }
+    .modal-overlay.active { display: flex; opacity: 1; visibility: visible; }
+    
+    .modal-overlay .auth-card {
+        position: relative;
+        width: 100%;
+        max-width: 420px;
+        padding: clamp(30px, 6vw, 42px);
+        
+        border-radius: var(--plate-r); 
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid var(--glass-border-strong);
+        backdrop-filter: blur(30px) saturate(160%);
+        -webkit-backdrop-filter: blur(30px) saturate(160%);
+        box-shadow: var(--shadow-strong);
+
+        transform: scale(0.95);
+        transition: transform .3s ease;
+    }
+
+    .modal-overlay.active .auth-card { transform: scale(1); }
+    .auth-card h1 { font-size: clamp(24px, 4.5vw, 32px); margin: 0 0 30px; color: #fff; text-align: center; }
+    .auth-form { width: 100%; display: flex; flex-direction: column; gap: 18px; }
     .form-group { display: flex; flex-direction: column; text-align: left; }
-    .form-group label { font-size: 0.9em; font-weight: 500; margin-bottom: 8px; color: var(--muted); }
-    .form-input { height: clamp(48px, 6vh, 54px); padding: 0 18px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,0.15); color: #fff; font-size: 1em; font-weight: 500; outline: none; transition: border-color .2s ease, box-shadow .2s ease; }
-    .form-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3); }
-    .btn-primary { height: clamp(48px, 6vh, 54px); border-radius: var(--radius-sm); border: none; background: linear-gradient(135deg, #0077ff, #005fcc); color: #fff; font-size: 1.05em; font-weight: 600; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15); cursor: pointer; transition: all .2s ease-out; }
+    .form-group label { font-size: 1em; font-weight: 550; color: rgba(255,255,255,.9); margin-bottom: 8px; padding-left: 4px; }
+    
+    .form-input {
+        height: clamp(48px, 6vh, 52px);
+        padding: 0 20px;
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(255,255,255,.3);
+        background: rgba(255,255,255,0.15);
+        box-shadow: inset 0 1px 3px rgba(0,0,0,.15);
+        color: #fff; 
+        font-size: 1em;
+        outline: none; 
+        transition: border-color .2s ease, box-shadow .2s ease, background .2s ease; 
+    }
+    .form-input:focus { 
+        border-color: var(--brand); 
+        background: rgba(255,255,255,0.25);
+        box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3), inset 0 1px 3px rgba(0,0,0,.15);
+    }
+    
+    .btn-primary {
+        height: clamp(50px, 6vh, 56px); border-radius: var(--radius-sm); border: none; 
+        background: linear-gradient(135deg, #0077ff, #005fcc); color: #fff; 
+        font-size: 1.1em; font-weight: 600; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); 
+        box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15); 
+        cursor: pointer; transition: all .2s ease-out; margin-top: 15px;
+    }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0, 122, 255, 0.3); background: linear-gradient(135deg, #0081ff, #006ae6); }
     .btn-primary:active { transform: scale(0.98); box-shadow: 0 2px 8px rgba(0, 122, 255, 0.25); transition-duration: .1s; }
     
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 2000; display: none; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility .3s ease; }
-    .modal-overlay.active { display: flex; opacity: 1; visibility: visible; }
-    .modal-overlay .auth-card { position: relative; transform: scale(0.95); transition: transform .3s ease; }
-    .modal-overlay.active .auth-card { transform: scale(1); }
-    .close-btn { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 2.5rem; color: var(--muted); cursor: pointer; line-height: 1; padding: 0; }
-    .close-btn:hover { color: var(--text); }
-    .form-message { text-align: center; padding: 10px; margin-bottom: 15px; border-radius: var(--radius-sm); font-size: 0.9em; display: none; }
+    .close-btn {
+        position: absolute; top: var(--s-2); right: var(--s-2);
+        width: clamp(36px, 5vw, 42px); height: clamp(36px, 5vw, 42px);
+        display: flex; align-items: center; justify-content: center;
+        background: transparent; border: none; border-radius: 50%; padding: 0; cursor: pointer;
+        color: rgba(255, 255, 255, 0.7); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .close-btn svg { width: 45%; height: 45%; }
+    .close-btn:hover { color: white; background-color: rgba(255, 255, 255, 0.1); transform: scale(1.1); }
+    .close-btn:active { transform: scale(0.95); background-color: rgba(255, 255, 255, 0.15); }
+    
+    .form-message { text-align: center; padding: 10px; margin-top: 15px; border-radius: var(--radius-sm); font-size: 0.9em; display: none; }
     .form-message.success { background-color: rgba(45, 201, 109, 0.2); color: #36d87d; display: block; }
     .form-message.error { background-color: rgba(235, 87, 87, 0.2); color: #eb5757; display: block; }
 
@@ -154,9 +246,22 @@
     
     .reveal{ opacity:0; transform: translateY(16px); transition: opacity .6s ease-out, transform .6s ease-out; will-change: opacity, transform; }
     .reveal.show{ opacity:1; transform: none; }
+    
+    .form-input::placeholder { color: rgba(255, 255, 255, 0.65); opacity: 1; }
+    .form-input[type="date"]:invalid { color: rgba(255, 255, 255, 0.65); }
+    .form-input[type="date"] { color: var(--text); }
+    .form-input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) opacity(0.65); cursor: pointer; transition: filter 0.2s ease; }
+    .form-input[type="date"]::-webkit-calendar-picker-indicator:hover { filter: invert(1) opacity(0.85); }
+
+    /* === BẮT ĐẦU: CSS ĐIỀU KHIỂN HIỂN THỊ NÚT ĐĂNG NHẬP/MENU === */
+    .nav-actions--logged-out .user-menu-container,
+    .nav-actions--logged-in #loginBtn {
+      display: none;
+    }
+    /* === KẾT THÚC === */
 
     @media (max-width: 999px){ .page-wrapper { background-attachment: scroll; } .tri { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr; } .post{ flex-direction: column } .thumb{ width:100% } .hero-card, .card, .post{ box-shadow: 0 10px 22px rgba(0,0,0,.22), 0 3px 8px rgba(0,0,0,.10) } }
-    @media (max-width:560px){ .nav-actions .btn-glass { padding:0 12px } .btn-glass__label{ display:none } }
+    @media (max-width:560px){ .nav-actions .btn-glass { padding:0 12px } .btn-glass__label{ display:none } .btn-glass__label--user{ display: inline !important; } }
   </style>
 </head>
 <body>
@@ -169,10 +274,28 @@
         </a>
 
         <div class="nav-actions">
+          <button id="uploadBtn" class="btn-glass" type="button" title="Tải tài liệu lên">
+            <svg class="btn-glass__icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.25a9.75 9.75 0 1 0 0 19.5 9.75 9.75 0 0 0 0-19.5Zm0 13.5a.75.75 0 0 1-.75-.75V9.81l-1.72 1.72a.75.75 0 1 1-1.06-1.06l3.03-3.03c.29-.29.77-.29 1.06 0l3.03 3.03a.75.75 0 1 1-1.06 1.06L12.75 9.8v5.2c0 .41-.34.75-.75-.75Z"/></svg>
+            <span class="btn-glass__label">Up tài liệu</span>
+          </button>
+          
           <button type="button" class="btn-glass" id="loginBtn">
             <svg class="btn-glass__icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.24-8 5v1.5a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5V19c0-2.76-3.58-5-8-5Z"/></svg>
             <span class="btn-glass__label">Đăng nhập</span>
           </button>
+
+          <div class="user-menu-container">
+            <button type="button" class="btn-glass" id="userMenuBtn">
+                <svg class="btn-glass__icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.24-8 5v1.5a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5V19c0-2.76-3.58-5-8-5Z"/></svg>
+                <span class="btn-glass__label btn-glass__label--user"></span>
+            </button>
+            <div class="user-menu-dropdown" id="userDropdown">
+                <a href="#" id="userInfoLink">Thông tin tài khoản</a>
+                <a href="#" id="changePasswordLink">Đổi mật khẩu</a>
+                <hr>
+                <a href="logout.php">Đăng xuất</a>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -249,7 +372,12 @@
   
   <div class="modal-overlay" id="passwordModalOverlay">
     <section class="auth-card" id="passwordChangeCard">
-      <button type="button" class="close-btn" data-close-modal="passwordModalOverlay">&times;</button>
+      <button type="button" class="close-btn" data-close-modal="passwordModalOverlay" aria-label="Đóng">
+        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 1L1 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 1L13 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
       <h1>Đổi mật khẩu</h1>
       <form class="auth-form" id="passwordChangeForm">
         <div class="form-group">
@@ -272,16 +400,21 @@
   
   <div class="modal-overlay" id="userInfoModalOverlay">
     <section class="auth-card" id="userInfoCard">
-      <button type="button" class="close-btn" data-close-modal="userInfoModalOverlay">&times;</button>
+      <button type="button" class="close-btn" data-close-modal="userInfoModalOverlay" aria-label="Đóng">
+        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 1L1 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 1L13 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
       <h1>Thông tin tài khoản</h1>
       <form class="auth-form" id="userInfoForm">
         <div class="form-group">
           <label for="full-name">Họ và tên</label>
-          <input type="text" name="full_name" id="full-name" class="form-input" placeholder="Nhập họ và tên của bạn">
+          <input type="text" name="full_name" id="full-name" class="form-input" placeholder="Nhập họ và tên của bạn" required>
         </div>
         <div class="form-group">
           <label for="dob">Ngày sinh</label>
-          <input type="date" name="dob" id="dob" class="form-input">
+          <input type="date" name="dob" id="dob" class="form-input" required>
         </div>
          <div class="form-group">
           <label for="email">Email</label>
@@ -297,7 +430,86 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-        // --- Script: Cuộn tới các section ---
+        const navActions = document.querySelector('.nav-actions');
+        let isLoggedIn = false;
+
+        function updateLoginStatus() {
+            fetch('check_login.php')
+                .then(response => response.json())
+                .then(data => {
+                    isLoggedIn = data.loggedin;
+                    if (isLoggedIn) {
+                        navActions.classList.remove('nav-actions--logged-out');
+                        navActions.classList.add('nav-actions--logged-in');
+                        navActions.querySelector('.btn-glass__label--user').textContent = data.username;
+                    } else {
+                        navActions.classList.remove('nav-actions--logged-in');
+                        navActions.classList.add('nav-actions--logged-out');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking login status:', error);
+                    isLoggedIn = false;
+                    navActions.classList.remove('nav-actions--logged-in');
+                    navActions.classList.add('nav-actions--logged-out');
+                });
+        }
+        
+        if (navActions) {
+            updateLoginStatus();
+
+            navActions.addEventListener('click', (e) => {
+                const target = e.target.closest('a, button');
+                if (!target) return;
+
+                const dropdown = document.getElementById('userDropdown');
+
+                if (target.id === 'uploadBtn') {
+                    if (isLoggedIn) {
+                        window.location.href = 'upload.html';
+                    } else {
+                        window.location.href = 'login.html?notice=upload';
+                    }
+                    return;
+                }
+
+                if (target.id === 'loginBtn') {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                if (target.id === 'userMenuBtn') {
+                    if (dropdown) dropdown.classList.toggle('active');
+                    return;
+                }
+
+                if (target.id === 'userInfoLink') {
+                    e.preventDefault();
+                    if (dropdown) dropdown.classList.remove('active');
+                    openModal('userInfoModalOverlay');
+                    fetch('get_user_info.php')
+                      .then(res => res.json())
+                      .then(data => {
+                          if(data.status === 'success') {
+                              document.getElementById('full-name').value = data.data.full_name || '';
+                              document.getElementById('dob').value = data.data.dob || '';
+                              document.getElementById('email').value = data.data.email || '';
+                          }
+                      });
+                    return;
+                }
+
+                if (target.id === 'changePasswordLink') {
+                    e.preventDefault();
+                    if (dropdown) dropdown.classList.remove('active');
+                    openModal('passwordModalOverlay');
+                    return;
+                }
+            });
+        }
+        
+        // --- CÁC HÀM VÀ SỰ KIỆN KHÁC ---
+
         document.querySelectorAll('#uni, #lang, #major').forEach(el => {
             el.addEventListener('click', () => {
                 const map = { uni: '#first-section', lang: '#lang-section', major: '#major-section' };
@@ -305,7 +517,6 @@
             });
         });
         
-        // --- Script: Reveal effect ---
         const io = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -316,7 +527,6 @@
         }, { root: null, threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
         
-        // --- Script: Ẩn/hiện header khi cuộn ---
         const header = document.querySelector('header');
         if (header) {
             let lastScrollTop = 0;
@@ -331,10 +541,10 @@
             }, false);
         }
 
-        // --- CÁC HÀM XỬ LÝ MODAL ---
         const openModal = (modalId) => {
             const modal = document.getElementById(modalId);
             if (!modal) return;
+            document.body.style.overflow = 'hidden';
             modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('active'), 10);
         };
@@ -342,6 +552,7 @@
         const closeModal = (modalId) => {
             const modal = document.getElementById(modalId);
             if (!modal) return;
+            document.body.style.overflow = '';
             modal.classList.remove('active');
             setTimeout(() => {
                 modal.style.display = 'none';
@@ -356,105 +567,25 @@
             }, 300);
         };
 
-        // Gắn sự kiện cho tất cả các nút đóng modal và lớp phủ
         document.querySelectorAll('[data-close-modal], .modal-overlay').forEach(el => {
             el.addEventListener('click', (e) => {
-                if (e.target !== el) return;
-                const modalId = el.dataset.closeModal || e.target.id;
+                if (e.target !== el && !e.target.closest('[data-close-modal]')) return;
+                const modalId = el.dataset.closeModal || el.id;
                 if (modalId) closeModal(modalId);
             });
         });
-
-        // --- XỬ LÝ TRẠNG THÁI ĐĂNG NHẬP VÀ CÁC HÀNH ĐỘNG LIÊN QUAN ---
-        const navActions = document.querySelector('.nav-actions');
-        if (navActions) {
-            fetch('check_login.php')
-                .then(response => response.ok ? response.json() : Promise.reject('Network response was not ok'))
-                .then(data => {
-                    if (data.loggedin) {
-                        navActions.innerHTML = `
-                            <button id="uploadBtn" class="btn-glass" type="button">
-                                <svg class="btn-glass__icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.25a9.75 9.75 0 1 0 0 19.5 9.75 9.75 0 0 0 0-19.5Zm0 13.5a.75.75 0 0 1-.75-.75V9.81l-1.72 1.72a.75.75 0 1 1-1.06-1.06l3.03-3.03c.29-.29.77-.29 1.06 0l3.03 3.03a.75.75 0 1 1-1.06 1.06L12.75 9.8v5.2c0 .41-.34.75-.75-.75Z"/></svg>
-                                <span class="btn-glass__label">Up tài liệu</span>
-                            </button>
-                            <div class="user-menu-container">
-                                <button type="button" class="btn-glass" id="userMenuBtn">
-                                    <svg class="btn-glass__icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.24-8 5v1.5a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5V19c0-2.76-3.58-5-8-5Z"/></svg>
-                                    <span class="btn-glass__label">${data.username}</span>
-                                </button>
-                                <div class="user-menu-dropdown" id="userDropdown">
-                                    <a href="#" id="userInfoLink">Thông tin tài khoản</a>
-                                    <a href="#" id="changePasswordLink">Đổi mật khẩu</a>
-                                    <hr>
-                                    <a href="logout.php">Đăng xuất</a>
-                                </div>
-                            </div>`;
-                    }
-                })
-                .catch(error => console.error('Lỗi khi kiểm tra trạng thái đăng nhập:', error));
-
-            // Quản lý tất cả sự kiện click trên .nav-actions
-            navActions.addEventListener('click', (e) => {
-                const target = e.target;
-                const dropdown = document.getElementById('userDropdown');
-
-                if (target.closest('#userMenuBtn')) {
-                    if (dropdown) dropdown.classList.toggle('active');
-                    return;
-                }
-                
-                if (dropdown && !target.closest('.user-menu-container')) {
-                     dropdown.classList.remove('active');
-                }
-
-                if (target.closest('#loginBtn')) {
-                    window.location.href = 'login.html';
-                    return;
-                }
-                
-                if (target.closest('#uploadBtn')) {
-                    e.preventDefault();
-                    window.location.href = 'upload.html';
-                    return;
-                }
-                
-                if (target.closest('#userInfoLink')) {
-                    e.preventDefault();
-                    if (dropdown) dropdown.classList.remove('active');
-                    fetch('get_user_info.php')
-                        .then(res => res.ok ? res.json() : Promise.reject('Failed to fetch user info'))
-                        .then(response => {
-                            if (response.status === 'success') {
-                                const { full_name, dob, email } = response.data;
-                                document.getElementById('full-name').value = full_name || '';
-                                document.getElementById('dob').value = dob || '';
-                                document.getElementById('email').value = email || '';
-                                openModal('userInfoModalOverlay');
-                            } else {
-                                alert(response.message);
-                            }
-                        }).catch(err => alert('Lỗi: ' + err));
-                    return;
-                }
-
-                if (target.closest('#changePasswordLink')) {
-                    e.preventDefault();
-                    if (dropdown) dropdown.classList.remove('active');
-                    openModal('passwordModalOverlay');
-                    return;
-                }
-            });
-
-            // Đóng dropdown khi click ra ngoài
-            window.addEventListener('click', (e) => {
-                if (!navActions.contains(e.target)) {
-                    const dropdown = document.getElementById('userDropdown');
-                    if (dropdown) dropdown.classList.remove('active');
-                }
-            });
-        }
         
-        // --- XỬ LÝ SUBMIT FORM ĐỔI MẬT KHẨU ---
+        document.querySelectorAll('.modal-overlay .auth-card').forEach(card => {
+           card.addEventListener('click', e => e.stopPropagation());
+        });
+
+        window.addEventListener('click', (e) => {
+            if (navActions && !navActions.contains(e.target)) {
+                const dropdown = document.getElementById('userDropdown');
+                if (dropdown) dropdown.classList.remove('active');
+            }
+        });
+        
         const passwordChangeForm = document.getElementById('passwordChangeForm');
         if (passwordChangeForm) {
             passwordChangeForm.addEventListener('submit', function(e) { 
@@ -462,6 +593,8 @@
                 const formData = new FormData(this);
                 const messageDiv = document.getElementById('password-change-message');
                 const submitButton = this.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.textContent;
+
                 submitButton.disabled = true;
                 submitButton.textContent = 'Đang xử lý...';
 
@@ -474,19 +607,19 @@
                             setTimeout(() => closeModal('passwordModalOverlay'), 2000);
                         }
                     })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        messageDiv.textContent = 'Có lỗi kết nối, vui lòng thử lại.';
+                    .catch(() => {
+                        messageDiv.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
                         messageDiv.className = 'form-message error';
                     })
                     .finally(() => {
-                        submitButton.disabled = false;
-                        submitButton.textContent = 'Xác nhận';
+                        if(messageDiv.classList.contains('error')){
+                            submitButton.disabled = false;
+                            submitButton.textContent = originalButtonText;
+                        }
                     });
             });
         }
         
-        // --- XỬ LÝ SUBMIT FORM CẬP NHẬT THÔNG TIN ---
         const userInfoForm = document.getElementById('userInfoForm');
         if (userInfoForm) {
             userInfoForm.addEventListener('submit', function(e) {
@@ -494,31 +627,33 @@
                 const formData = new FormData(this);
                 const messageDiv = document.getElementById('user-info-message');
                 const submitButton = this.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.textContent;
+                
                 submitButton.disabled = true;
                 submitButton.textContent = 'Đang lưu...';
 
                 fetch('update_user_info.php', { method: 'POST', body: formData })
-                    .then(res => res.json())
-                    .then(data => {
-                        messageDiv.textContent = data.message;
-                        messageDiv.className = `form-message ${data.status}`;
-                        if (data.status === 'success') {
-                            setTimeout(() => closeModal('userInfoModalOverlay'), 2000);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
+                  .then(res => res.json())
+                  .then(data => {
+                      messageDiv.textContent = data.message;
+                      messageDiv.className = `form-message ${data.status}`;
+                      if (data.status === 'success') {
+                          setTimeout(() => closeModal('userInfoModalOverlay'), 2000);
+                      }
+                  })
+                  .catch(() => {
                         messageDiv.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
                         messageDiv.className = 'form-message error';
-                    })
-                    .finally(() => {
-                        submitButton.disabled = false;
-                        submitButton.textContent = 'Lưu thay đổi';
-                    });
+                  })
+                  .finally(() => {
+                      if(messageDiv.classList.contains('error')){
+                          submitButton.disabled = false;
+                          submitButton.textContent = originalButtonText;
+                      }
+                  });
             });
         }
         
-        // --- LOGIC CHO NÚT MŨI TÊN CUỘN TRANG ---
         const cue = document.getElementById('scrollCue');
         const firstSection = document.getElementById('first-section');
 
@@ -591,3 +726,4 @@
   </script>
 </body>
 </html>
+}
