@@ -305,7 +305,7 @@
         <section class="hero-card">
           <h1>tailieuUNETI</h1>
           <p>Kho tài liệu do sinh viên & giảng viên đóng góp: đại cương, ngoại ngữ, chuyên ngành.<br/>Tìm kiếm nhanh, tải miễn phí.</p>
-          <form class="search" onsubmit="event.preventDefault(); alert('Tìm: '+this.q.value)">
+          <form class="search" action="timkiem.html" method="GET">
             <input name="q" placeholder="Tìm tài liệu" />
             <button class="icon-btn" type="submit" aria-label="Tìm">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 0 0 1.57-4.23A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L20 21.49 21.49 20 15.5 14Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Z"/></svg>
@@ -586,6 +586,7 @@
             }
         });
         
+        // --- BẮT ĐẦU: LOGIC FORM ĐÃ SỬA ---
         const passwordChangeForm = document.getElementById('passwordChangeForm');
         if (passwordChangeForm) {
             passwordChangeForm.addEventListener('submit', function(e) { 
@@ -603,19 +604,26 @@
                     .then(data => {
                         messageDiv.textContent = data.message;
                         messageDiv.className = `form-message ${data.status}`;
+
                         if (data.status === 'success') {
-                            setTimeout(() => closeModal('passwordModalOverlay'), 2000);
+    // Cập nhật text của nút để thông báo đã lưu
+    submitButton.textContent = 'Đã lưu!';
+    
+    // Sau 2 giây, kích hoạt lại nút để người dùng có thể sửa tiếp
+    setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+    }, 2000);
+} else {
+                            submitButton.disabled = false;
+                            submitButton.textContent = originalButtonText;
                         }
                     })
                     .catch(() => {
                         messageDiv.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
                         messageDiv.className = 'form-message error';
-                    })
-                    .finally(() => {
-                        if(messageDiv.classList.contains('error')){
-                            submitButton.disabled = false;
-                            submitButton.textContent = originalButtonText;
-                        }
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
                     });
             });
         }
@@ -637,22 +645,30 @@
                   .then(data => {
                       messageDiv.textContent = data.message;
                       messageDiv.className = `form-message ${data.status}`;
-                      if (data.status === 'success') {
-                          setTimeout(() => closeModal('userInfoModalOverlay'), 2000);
+                      
+                     if (data.status === 'success') {
+    // Cập nhật text của nút để thông báo đã lưu
+    submitButton.textContent = 'Đã lưu!';
+    
+    // Sau 2 giây, kích hoạt lại nút để người dùng có thể sửa tiếp
+    setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+    }, 2000);
+} else {
+                          submitButton.disabled = false;
+                          submitButton.textContent = originalButtonText;
                       }
                   })
                   .catch(() => {
                         messageDiv.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
                         messageDiv.className = 'form-message error';
-                  })
-                  .finally(() => {
-                      if(messageDiv.classList.contains('error')){
-                          submitButton.disabled = false;
-                          submitButton.textContent = originalButtonText;
-                      }
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
                   });
             });
         }
+        // --- KẾT THÚC: LOGIC FORM ĐÃ SỬA ---
         
         const cue = document.getElementById('scrollCue');
         const firstSection = document.getElementById('first-section');

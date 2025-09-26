@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Kết quả tìm kiếm - tailieuUNETI</title>
+  <link rel="icon" href="assets/favicon.ico?v=2">
+
+  <style>
+    :root{
+      --plate-r: clamp(22px, 2.8vw, 28px);
+      --tile-r:  clamp(14px, 1.8vw, 16px);
+      --radius-sm: clamp(12px, 1.6vw, 14px);
+      --glass-border: rgba(255,255,255,.18);
+      --glass: linear-gradient( to bottom right, rgba(255,255,255,.14), rgba(255,255,255,.07) );
+      --gutter: clamp(20px, 6vw, 36px);
+      --maxw: 1120px;
+      --header-h: clamp(56px, 7vh, 72px);
+      --s-1: clamp(10px, 2.2vw, 14px);
+      --text:#f5f5f7;
+      --muted: rgba(245, 245, 247, 0.75);
+      --brand: #007aff;
+      --glass-border-strong: rgba(255,255,255,.2);
+      --shadow-strong: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      --bg-img: url("assets/A.jpeg");
+    }
+    *{box-sizing:border-box}
+    html{height:100%;}
+    body{
+      height:100%; margin:0;
+      background-color: #0a0f25; color:var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .page-wrapper {
+      background: var(--bg-img) center/cover fixed no-repeat;
+      position: relative; z-index: 1; min-height: 100vh;
+    }
+    .page-wrapper::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(140% 100% at 50% 0%, rgba(255,255,255,.06), transparent 60%),
+        radial-gradient(120% 120% at 50% 120%, rgba(0,0,0,.22), transparent 55%),
+        linear-gradient(0deg, rgba(16,22,40,.28), rgba(16,22,40,.28));
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      z-index: -1;
+    }
+    .container{max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+
+    /* --- Header & User Menu (Copy từ index.html) --- */
+    header{
+      position: sticky; top: 0; z-index:1000; height:var(--header-h);
+      border-bottom:1px solid var(--glass-border);
+      background: rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px) saturate(140%); -webkit-backdrop-filter: blur(10px) saturate(140%);
+    }
+    .nav{height:100%; display:flex; align-items:center; justify-content:space-between; gap:var(--s-1)}
+    .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; }
+    .brand-logo{ height: clamp(36px, 4.6vw, 52px); }
+    .brand-name{font-weight:800; font-size: clamp(18px, 2.2vw, 28px); color:#fff}
+    .nav-actions { display:flex; align-items:center; gap: 10px; }
+    .btn-glass { --h: clamp(40px, 4.6vw, 44px); height: var(--h); padding: 0 clamp(14px, 2vw, 18px); display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; background-color: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.95); font-weight: 500; text-decoration: none; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: background-color .2s ease, transform .2s ease; cursor: pointer; outline: none; }
+    .btn-glass:hover { background-color: rgba(255, 255, 255, 0.2); transform: translateY(-1px); }
+    .btn-glass__icon { width: clamp(18px, 2.2vw, 20px); height: clamp(18px, 2.2vw, 20px); flex-shrink: 0; }
+    .user-menu-container { position: relative; }
+    .user-menu-dropdown { position: absolute; top: calc(100% + 16px); right: 0; min-width: 240px; padding: 6px; z-index: 1100; background: rgba(245, 245, 247, 0.85); color: #1d1d1f; backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); border-radius: 14px; border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25); opacity: 0; visibility: hidden; transform: translateY(-10px) scale(0.95); transform-origin: top right; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
+    .user-menu-dropdown.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); pointer-events: auto; }
+    .user-menu-dropdown a { display: flex; align-items: center; gap: 12px; padding: 10px; color: #1d1d1f; text-decoration: none; border-radius: 9px; font-size: 0.9em; font-weight: 500; transition: background-color .2s ease; text-align: left; cursor: pointer; }
+    .user-menu-dropdown a:hover { background-color: rgba(0, 0, 0, 0.05); }
+    .user-menu-dropdown hr { border: none; height: 1px; background-color: rgba(0, 0, 0, 0.1); margin: 6px 4px; }
+    .nav-actions--logged-out .user-menu-container, .nav-actions--logged-in #loginBtn { display: none; }
+
+    /* --- Main Content --- */
+    main { padding: 48px 0; }
+    .results-header { margin-bottom: 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .results-header h1 { font-size: clamp(28px, 5vw, 42px); margin: 0; }
+    .results-header p { color: var(--muted); margin: 0; }
+    .search{ display:flex; gap: var(--s-1); width:100%; max-width: 600px; }
+    .search input{ flex:1; height: clamp(40px, 5vw, 44px); padding: 0 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,.45); background: rgba(255,255,255,0.2); color:#fff; font-size: clamp(15px, 1.2vw, 16px); font-weight:500; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 4px 12px rgba(0,0,0,.15), inset 0 1px 0 rgba(255,255,255,.3); outline:none; transition: all 0.2s ease; }
+    .search input:focus { border-color: var(--brand); background: rgba(255,255,255,0.3); }
+    .icon-btn{ width: clamp(40px, 5vw, 44px); height: clamp(40px, 5vw, 44px); border-radius: 999px; border:1px solid rgba(255,255,255,.35); background: var(--glass); color:var(--text); box-shadow: 0 4px 12px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.5); backdrop-filter: blur(14px); outline:none; cursor:pointer; display: flex; align-items: center; justify-content: center; }
+    .icon-btn svg{ width: clamp(20px, 3vw, 22px); height: clamp(20px, 3vw, 22px); fill:currentColor }
+    .results-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px; }
+    @media (max-width: 768px) { .results-container { grid-template-columns: 1fr; } }
+    .result-item { padding: 24px; border-radius: var(--tile-r, 16px); background: rgba(30, 35, 50, 0.6); border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(25px) saturate(180%); -webkit-backdrop-filter: blur(25px) saturate(180%); box-shadow: 0 8px 24px rgba(0,0,0,0.3); text-align: left; }
+    .result-item .cat { font-size: 13px; font-weight: 600; text-transform: uppercase; color: var(--brand, #007aff); margin-bottom: 6px; }
+    .result-item h4 { margin: 0 0 8px 0; font-size: 22px; color: var(--text); text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+    .result-item p { margin: 0 0 16px 0; color: var(--muted); line-height: 1.6; }
+    .result-item a.download-btn { --h: clamp(40px, 4.6vw, 44px); height: var(--h); padding: 0 clamp(14px, 2vw, 18px); display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; background-color: rgba(0, 122, 255, 0.15); border: 1px solid transparent; color: var(--brand); font-weight: 500; text-decoration: none; transition: background-color .2s ease, transform .2s ease; }
+    .result-item a.download-btn:hover { background-color: rgba(0, 122, 255, 0.25); transform: translateY(-1px); }
+
+    /* --- CSS cho Modal (Copy từ index.html) --- */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 2000; display: none; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility .3s ease; padding: var(--gutter); }
+    .modal-overlay.active { display: flex; opacity: 1; visibility: visible; }
+    .modal-overlay .auth-card { position: relative; width: 100%; max-width: 420px; padding: clamp(30px, 6vw, 42px); border-radius: var(--plate-r); background: rgba(255, 255, 255, 0.1); border: 1px solid var(--glass-border-strong); backdrop-filter: blur(30px) saturate(160%); -webkit-backdrop-filter: blur(30px) saturate(160%); box-shadow: var(--shadow-strong); transform: scale(0.95); transition: transform .3s ease; }
+    .modal-overlay.active .auth-card { transform: scale(1); }
+    .auth-card h1 { font-size: clamp(24px, 4.5vw, 32px); margin: 0 0 30px; color: #fff; text-align: center; }
+    .auth-form { display: flex; flex-direction: column; gap: 18px; }
+    .form-group { display: flex; flex-direction: column; text-align: left; }
+    .form-group label { font-weight: 550; color: rgba(255,255,255,.9); margin-bottom: 8px; }
+    .form-input { height: clamp(48px, 6vh, 52px); padding: 0 20px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,0.15); box-shadow: inset 0 1px 3px rgba(0,0,0,.15); color: #fff; font-size: 1em; outline: none; transition: all .2s ease; }
+    .form-input:focus { border-color: var(--brand); background: rgba(255,255,255,0.25); box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3), inset 0 1px 3px rgba(0,0,0,.15); }
+    .btn-primary { height: clamp(50px, 6vh, 56px); border-radius: var(--radius-sm); border: none; background: linear-gradient(135deg, #0077ff, #005fcc); color: #fff; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: all .2s ease-out; margin-top: 15px; }
+    .close-btn { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; border-radius: 50%; cursor: pointer; color: rgba(255, 255, 255, 0.7); transition: all 0.2s ease; }
+    .close-btn:hover { color: white; background-color: rgba(255, 255, 255, 0.1); }
+    .form-message { text-align: center; padding: 10px; margin-top: 15px; border-radius: var(--radius-sm); font-size: 0.9em; display: none; }
+    .form-message.success { background-color: rgba(45, 201, 109, 0.2); color: #36d87d; display: block; }
+    .form-message.error { background-color: rgba(235, 87, 87, 0.2); color: #eb5757; display: block; }
+
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <header>
+      <div class="container nav">
+        <a class="brand" href="index.html" aria-label="Về trang chủ">
+          <img class="brand-logo" src="assets/logo.png" alt="tailieuUNETI logo"/>
+          <span class="brand-name">tailieuUNETI</span>
+        </a>
+        <div class="nav-actions">
+          <button id="uploadBtn" class="btn-glass" type="button" title="Tải tài liệu lên">
+            <svg class="btn-glass__icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.25a9.75 9.75 0 1 0 0 19.5 9.75 9.75 0 0 0 0-19.5Zm0 13.5a.75.75 0 0 1-.75-.75V9.81l-1.72 1.72a.75.75 0 1 1-1.06-1.06l3.03-3.03c.29-.29.77-.29 1.06 0l3.03 3.03a.75.75 0 1 1-1.06 1.06L12.75 9.8v5.2c0 .41-.34.75-.75-.75Z"/></svg>
+            <span class="btn-glass__label">Up tài liệu</span>
+          </button>
+          <button type="button" class="btn-glass" id="loginBtn">
+            <svg class="btn-glass__icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.24-8 5v1.5a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5V19c0-2.76-3.58-5-8-5Z"/></svg>
+            <span class="btn-glass__label">Đăng nhập</span>
+          </button>
+          <div class="user-menu-container">
+            <button type="button" class="btn-glass" id="userMenuBtn">
+                <svg class="btn-glass__icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.24-8 5v1.5a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5V19c0-2.76-3.58-5-8-5Z"/></svg>
+                <span class="btn-glass__label btn-glass__label--user"></span>
+            </button>
+            <div class="user-menu-dropdown" id="userDropdown">
+                <a href="#" id="userInfoLink">Thông tin tài khoản</a>
+                <a href="#" id="changePasswordLink">Đổi mật khẩu</a>
+                <hr>
+                <a href="logout.php">Đăng xuất</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="results-header">
+        <h1 id="searchResultsTitle">Đang tải kết quả...</h1>
+        <p id="resultsCount"></p>
+        <form class="search" action="timkiem.html" method="GET">
+          <input name="q" placeholder="Tìm kiếm tài liệu khác..." />
+          <button class="icon-btn" type="submit" aria-label="Tìm">
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 0 0 1.57-4.23A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L20 21.49 21.49 20 15.5 14Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Z"/></svg>
+          </button>
+        </form>
+      </div>
+      <div class="results-container" id="resultsContainer">
+        </div>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="passwordModalOverlay">
+    <section class="auth-card" id="passwordChangeCard">
+      <button type="button" class="close-btn" data-close-modal="passwordModalOverlay" aria-label="Đóng">
+        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 1L1 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 1L13 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <h1>Đổi mật khẩu</h1>
+      <form class="auth-form" id="passwordChangeForm">
+        <div class="form-group">
+          <label for="old-password">Mật khẩu cũ</label>
+          <input type="password" name="old_password" id="old-password" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label for="new-password">Mật khẩu mới</label>
+          <input type="password" name="new_password" id="new-password" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-new-password">Nhập lại mật khẩu mới</label>
+          <input type="password" name="confirm_new_password" id="confirm-new-password" class="form-input" required>
+        </div>
+        <div id="password-change-message" class="form-message"></div>
+        <button type="submit" class="btn-primary">Xác nhận</button>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal-overlay" id="userInfoModalOverlay">
+    <section class="auth-card" id="userInfoCard">
+      <button type="button" class="close-btn" data-close-modal="userInfoModalOverlay" aria-label="Đóng">
+        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 1L1 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 1L13 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <h1>Thông tin tài khoản</h1>
+      <form class="auth-form" id="userInfoForm">
+        <div class="form-group">
+          <label for="full-name">Họ và tên</label>
+          <input type="text" name="full_name" id="full-name" class="form-input" placeholder="Nhập họ và tên của bạn" required>
+        </div>
+        <div class="form-group">
+          <label for="dob">Ngày sinh</label>
+          <input type="date" name="dob" id="dob" class="form-input" required>
+        </div>
+         <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" class="form-input" required>
+        </div>
+        <div id="user-info-message" class="form-message"></div>
+        <button type="submit" class="btn-primary">Lưu thay đổi</button>
+      </form>
+    </section>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- PHẦN 1: KHỞI TẠO TÍNH NĂNG HEADER ---
+        const navActions = document.querySelector('.nav-actions');
+        let isLoggedIn = false;
+
+        fetch('check_login.php')
+            .then(response => response.json())
+            .then(data => {
+                isLoggedIn = data.loggedin;
+                if (isLoggedIn) {
+                    navActions.classList.remove('nav-actions--logged-out');
+                    navActions.classList.add('nav-actions--logged-in');
+                    navActions.querySelector('.btn-glass__label--user').textContent = data.username;
+                } else {
+                    navActions.classList.remove('nav-actions--logged-in');
+                    navActions.classList.add('nav-actions--logged-out');
+                }
+            })
+            .catch(error => {
+                console.error('Error checking login status:', error);
+                isLoggedIn = false;
+                navActions.classList.remove('nav-actions--logged-in');
+                navActions.classList.add('nav-actions--logged-out');
+            });
+
+        navActions.addEventListener('click', (e) => {
+            const target = e.target.closest('a, button');
+            if (!target) return;
+
+            const dropdown = document.getElementById('userDropdown');
+
+            if (target.id === 'uploadBtn') {
+                if (isLoggedIn) { window.location.href = 'upload.html'; }
+                else { window.location.href = 'login.html?notice=upload'; }
+                return;
+            }
+
+            if (target.id === 'loginBtn') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (target.id === 'userMenuBtn') {
+                if (dropdown) dropdown.classList.toggle('active');
+                return;
+            }
+
+            if (target.id === 'userInfoLink') {
+                e.preventDefault();
+                if (dropdown) dropdown.classList.remove('active');
+                openModal('userInfoModalOverlay');
+                fetch('get_user_info.php')
+                  .then(res => res.json())
+                  .then(data => {
+                      if(data.status === 'success') {
+                          document.getElementById('full-name').value = data.data.full_name || '';
+                          document.getElementById('dob').value = data.data.dob || '';
+                          document.getElementById('email').value = data.data.email || '';
+                      }
+                  });
+                return;
+            }
+
+            if (target.id === 'changePasswordLink') {
+                e.preventDefault();
+                if (dropdown) dropdown.classList.remove('active');
+                openModal('passwordModalOverlay');
+                return;
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            if (navActions && !navActions.contains(e.target)) {
+                const dropdown = document.getElementById('userDropdown');
+                if (dropdown) dropdown.classList.remove('active');
+            }
+        });
+
+        // --- PHẦN 2: LOGIC CHO TRANG TÌM KIẾM ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const keyword = urlParams.get('q');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const resultsTitle = document.getElementById('searchResultsTitle');
+        const resultsCount = document.getElementById('resultsCount');
+        const searchInputInMain = document.querySelector('main .search input');
+
+        if (keyword) {
+            searchInputInMain.value = keyword;
+            resultsTitle.textContent = `Kết quả tìm kiếm cho "${keyword}"`;
+
+            fetch(`search.php?q=${encodeURIComponent(keyword)}`)
+                .then(response => response.json())
+                .then(data => {
+                    resultsContainer.innerHTML = '';
+                    if (data.length > 0) {
+                        resultsCount.textContent = `Tìm thấy ${data.length} tài liệu phù hợp.`;
+                        data.forEach(item => {
+                            const resultHtml = `
+                                <article class="result-item">
+                                    <div class="cat">${item.the_loai.toUpperCase().replace(/_/g, ' ')}</div>
+                                    <h4>${item.tieu_de}</h4>
+                                    <p>${item.mo_ta || 'Không có mô tả.'}</p>
+                                    <a href="${item.duong_dan_file}" class="download-btn" download>Tải về: ${item.ten_file}</a>
+                                </article>
+                            `;
+                            resultsContainer.insertAdjacentHTML('beforeend', resultHtml);
+                        });
+                    } else {
+                        resultsTitle.textContent = 'Không tìm thấy kết quả';
+                        resultsCount.textContent = `Không có tài liệu nào phù hợp với từ khóa "${keyword}".`;
+                        resultsContainer.innerHTML = ``;
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi khi tìm kiếm:', error);
+                    resultsTitle.textContent = 'Có lỗi xảy ra';
+                    resultsContainer.innerHTML = '<p style="text-align: center;">Không thể tải kết quả. Vui lòng thử lại sau.</p>';
+                });
+        } else {
+            resultsTitle.textContent = 'Vui lòng nhập từ khóa để tìm kiếm';
+        }
+
+        // --- PHẦN 3: CÁC HÀM VÀ LOGIC CHUNG CHO MODAL ---
+        const openModal = (modalId) => {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            document.body.style.overflow = 'hidden';
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+        };
+
+        const closeModal = (modalId) => {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            document.body.style.overflow = '';
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                const form = modal.querySelector('form');
+                if (form) form.reset();
+                const messageDiv = modal.querySelector('.form-message');
+                if (messageDiv) {
+                    messageDiv.style.display = 'none';
+                    messageDiv.textContent = '';
+                    messageDiv.className = 'form-message';
+                }
+            }, 300);
+        };
+
+        document.querySelectorAll('[data-close-modal], .modal-overlay').forEach(el => {
+            el.addEventListener('click', (e) => {
+                if (e.target !== el && !e.target.closest('[data-close-modal]')) return;
+                const modalId = el.dataset.closeModal || el.id;
+                if (modalId) closeModal(modalId);
+            });
+        });
+
+        document.querySelectorAll('.modal-overlay .auth-card').forEach(card => {
+           card.addEventListener('click', e => e.stopPropagation());
+        });
+
+        // --- BẮT ĐẦU: LOGIC FORM ĐÃ SỬA ---
+        const passwordChangeForm = document.getElementById('passwordChangeForm');
+        if (passwordChangeForm) {
+            passwordChangeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const messageDiv = document.getElementById('password-change-message');
+                const submitButton = this.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.textContent;
+
+                submitButton.disabled = true;
+                submitButton.textContent = 'Đang xử lý...';
+
+                fetch('change_password.php', { method: 'POST', body: formData })
+                    .then(res => res.json())
+                    .then(data => {
+                        messageDiv.textContent = data.message;
+                        messageDiv.className = `form-message ${data.status}`;
+                        if (data.status === 'success') {
+    // Cập nhật text của nút để thông báo đã lưu
+    submitButton.textContent = 'Đã lưu!';
+    
+    // Sau 2 giây, kích hoạt lại nút để người dùng có thể sửa tiếp
+    setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+    }, 2000);
+} else {
+                            submitButton.disabled = false;
+                            submitButton.textContent = originalButtonText;
+                        }
+                    })
+                    .catch(() => {
+                        messageDiv.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
+                        messageDiv.className = 'form-message error';
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                    });
+            });
+        }
+
+        const userInfoForm = document.getElementById('userInfoForm');
+        if (userInfoForm) {
+            userInfoForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const messageDiv = document.getElementById('user-info-message');
+                const submitButton = this.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.textContent;
+
+                submitButton.disabled = true;
+                submitButton.textContent = 'Đang lưu...';
+
+                fetch('update_user_info.php', { method: 'POST', body: formData })
+                  .then(res => res.json())
+                  .then(data => {
+                      messageDiv.textContent = data.message;
+                      messageDiv.className = `form-message ${data.status}`;
+                     if (data.status === 'success') {
+    // Cập nhật text của nút để thông báo đã lưu
+    submitButton.textContent = 'Đã lưu!';
+    
+    // Sau 2 giây, kích hoạt lại nút để người dùng có thể sửa tiếp
+    setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+    }, 2000);
+} else {
+                          submitButton.disabled = false;
+                          submitButton.textContent = originalButtonText;
+                      }
+                  })
+                  .catch(() => {
+                        messageDiv.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
+                        messageDiv.className = 'form-message error';
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                  });
+            });
+        }
+        // --- KẾT THÚC: LOGIC FORM ĐÃ SỬA ---
+    });
+  </script>
+</body>
+</html>

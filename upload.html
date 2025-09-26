@@ -39,7 +39,7 @@
     .form-group { display: flex; flex-direction: column; text-align: left; }
     .form-group label { font-size: 0.9em; font-weight: 500; margin-bottom: 8px; color: var(--muted); }
     .form-input { height: clamp(48px, 6vh, 54px); padding: 0 18px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,0.15); color: #fff; font-size: 1em; font-weight: 500; outline: none; transition: border-color .2s ease, box-shadow .2s ease; }
-    textarea.form-input { resize: none; }
+    textarea.form-input { padding-top: 15px; resize: vertical; }
     .form-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3); }
     .btn-primary { height: clamp(50px, 6vh, 56px); border-radius: var(--radius-sm); border: none; background: linear-gradient(135deg, #0077ff, #005fcc); color: #fff; font-size: 1.1em; font-weight: 600; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15); cursor: pointer; transition: all .2s ease-out; margin-top: 15px; }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0, 122, 255, 0.3); background: linear-gradient(135deg, #0081ff, #006ae6); }
@@ -53,35 +53,8 @@
     .custom-select-wrapper.open .custom-select-trigger { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3); }
     .arrow { position: relative; width: 12px; height: 12px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: translateY(-25%) rotate(45deg); transition: transform .2s ease; }
     .custom-select-wrapper.open .arrow { transform: translateY(0%) rotate(225deg); }
-    
-    /* === BẮT ĐẦU: CSS HIỆU ỨNG DROPDOWN MƯỢT MÀ (Bản nâng cấp) === */
-    .custom-options {
-        position: absolute;
-        top: calc(100% + 8px);
-        left: 0;
-        right: 0;
-        z-index: 10;
-        background: #FFFFFF;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-        border-radius: 14px;
-        padding: 6px;
-        overflow: hidden;
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transform: translateY(-10px);
-        transform-origin: top center;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .custom-select-wrapper.open .custom-options {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        transform: translateY(0);
-    }
-    /* === KẾT THÚC: CSS HIỆU ỨNG DROPDOWN MƯỢT MÀ === */
-
+    .custom-options { position: absolute; top: calc(100% + 8px); left: 0; right: 0; z-index: 10; background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 14px; padding: 6px; overflow: hidden; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-10px); transform-origin: top center; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+    .custom-select-wrapper.open .custom-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
     .custom-option { padding: 10px 12px; cursor: pointer; transition: background-color .2s ease; text-align: left; color: #1d1d1f; border-radius: 9px; }
     .custom-option:hover { background-color: rgba(0, 0, 0, 0.05); }
     .custom-option.selected { background-color: rgba(0, 122, 255, 0.15); font-weight: 500; }
@@ -159,7 +132,7 @@
   <main class="main-content">
     <section class="upload-card">
       <h1>Tải lên tài liệu</h1>
-      <form class="upload-form" id="uploadForm">
+      <form class="upload-form" id="uploadForm" enctype="multipart/form-data">
         <div class="form-group">
           <label for="doc-title">Tiêu đề tài liệu</label>
           <input type="text" name="title" id="doc-title" class="form-input" required>
@@ -167,7 +140,7 @@
         <div class="form-group">
           <label for="doc-category">Chọn thể loại</label>
           <select name="the_loai" id="doc-category" class="form-select-hidden" required>
-              <option value="">-- Vui lòng chọn --</option>
+              <option value="" disabled selected>-- Vui lòng chọn --</option>
               <option value="daicuong">Đại cương</option>
               <option value="tailieungoaingu">Tài liệu ngoại ngữ</option>
               <option value="tailieuchuyennganh">Tài liệu chuyên ngành</option>
@@ -186,7 +159,7 @@
         </div>
         <div class="form-group">
           <label for="doc-description">Mô tả ngắn</label>
-          <textarea name="description" id="doc-description" class="form-input" style="height: 80px; padding-top: 15px;"></textarea>
+          <textarea name="description" id="doc-description" class="form-input" style="height: 80px;"></textarea>
         </div>
         <div class="form-group">
           <label for="doc-file">Tệp đính kèm</label>
@@ -257,8 +230,8 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     
+    // --- PHẦN 1: LOGIC HEADER & LOGIN ---
     const navActions = document.querySelector('.nav-actions');
-
     fetch('check_login.php')
       .then(response => response.json())
       .then(data => {
@@ -277,31 +250,26 @@
 
     const userMenuBtn = document.getElementById('userMenuBtn');
     const userDropdown = document.getElementById('userDropdown');
-
     if(userMenuBtn && userDropdown) {
         userMenuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             userDropdown.classList.toggle('active');
         });
     }
-
-    window.addEventListener('click', (e) => {
-        if (userDropdown && !navActions.contains(e.target)) {
-            userDropdown.classList.remove('active');
-        }
+    window.addEventListener('click', () => {
+        if (userDropdown) userDropdown.classList.remove('active');
     });
 
+    // --- PHẦN 2: LOGIC UPLOAD FORM ---
     const uploadForm = document.getElementById('uploadForm');
     const fileInput = document.getElementById('doc-file');
     const fileListContainer = document.getElementById('file-list-container');
     const customSelect = document.querySelector('.custom-select-wrapper');
-    
     let fileStore = new DataTransfer();
 
     const renderFileList = () => {
       fileListContainer.innerHTML = '';
       if (fileStore.files.length === 0) return;
-
       Array.from(fileStore.files).forEach((file, index) => {
         const fileItemHTML = `
           <div class="file-list-item">
@@ -322,9 +290,7 @@
 
     fileInput.addEventListener('change', (e) => {
       const newFiles = e.target.files;
-      for (const file of newFiles) {
-        fileStore.items.add(file);
-      }
+      for (const file of newFiles) { fileStore.items.add(file); }
       fileInput.files = fileStore.files;
       renderFileList();
     });
@@ -334,13 +300,9 @@
       if (removeButton) {
         const indexToRemove = parseInt(removeButton.dataset.index, 10);
         const newFiles = new DataTransfer();
-        
         Array.from(fileStore.files).forEach((file, index) => {
-          if (index !== indexToRemove) {
-            newFiles.items.add(file);
-          }
+          if (index !== indexToRemove) { newFiles.items.add(file); }
         });
-
         fileStore = newFiles;
         fileInput.files = fileStore.files;
         renderFileList();
@@ -352,34 +314,30 @@
       const formData = new FormData(this);
       const messageDiv = document.getElementById('upload-message');
       const submitButton = this.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.textContent;
 
       submitButton.disabled = true;
       submitButton.textContent = 'Đang tải lên...';
-      messageDiv.style.display = 'none';
 
       fetch('upload.php', { method: 'POST', body: formData })
         .then(res => res.json())
         .then(data => {
             messageDiv.textContent = data.message;
             messageDiv.className = `form-message ${data.status}`;
-            messageDiv.style.display = 'block';
-
             if (data.status === 'success') {
-                submitButton.style.backgroundColor = '#2dcf6d';
-                setTimeout(() => { window.location.href = 'index.html'; }, 2000);
+                submitButton.textContent = 'Thành công!';
+                setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+            } else {
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
             }
         })
         .catch(error => {
             console.error('Error:', error);
             messageDiv.textContent = 'Lỗi kết nối hoặc lỗi server.';
             messageDiv.className = 'form-message error';
-            messageDiv.style.display = 'block';
-        })
-        .finally(() => {
-            if (messageDiv.classList.contains('error')) {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Tải lên';
-            }
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
         });
     });
 
@@ -409,6 +367,7 @@
       });
     }
 
+    // --- PHẦN 3: LOGIC MODAL (ĐÃ CẬP NHẬT) ---
     const openModal = (modalId) => {
         const modal = document.getElementById(modalId);
         if (!modal) return;
@@ -428,8 +387,6 @@
             if (form) form.reset();
             const messageDiv = modal.querySelector('.form-message');
             if (messageDiv) {
-                messageDiv.style.display = 'none';
-                messageDiv.textContent = '';
                 messageDiv.className = 'form-message';
             }
         }, 300);
@@ -486,18 +443,21 @@
                     messageDiv.textContent = data.message;
                     messageDiv.className = `form-message ${data.status}`;
                     if (data.status === 'success') {
-                        setTimeout(() => closeModal('passwordModalOverlay'), 2000);
+                        submitButton.textContent = 'Đã đổi!';
+                        setTimeout(() => {
+                            submitButton.disabled = false;
+                            submitButton.textContent = originalButtonText;
+                        }, 2000);
+                    } else {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
                     }
                 })
                 .catch(() => {
                     messageDiv.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
                     messageDiv.className = 'form-message error';
-                })
-                .finally(() => {
-                    if(messageDiv.classList.contains('error')){
-                        submitButton.disabled = false;
-                        submitButton.textContent = originalButtonText;
-                    }
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
                 });
         });
     }
@@ -520,18 +480,21 @@
                   messageDiv.textContent = data.message;
                   messageDiv.className = `form-message ${data.status}`;
                   if (data.status === 'success') {
-                      setTimeout(() => closeModal('userInfoModalOverlay'), 2000);
+                      submitButton.textContent = 'Đã lưu!';
+                      setTimeout(() => {
+                          submitButton.disabled = false;
+                          submitButton.textContent = originalButtonText;
+                      }, 2000);
+                  } else {
+                      submitButton.disabled = false;
+                      submitButton.textContent = originalButtonText;
                   }
               })
               .catch(() => {
                     messageDiv.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
                     messageDiv.className = 'form-message error';
-              })
-              .finally(() => {
-                  if(messageDiv.classList.contains('error')){
-                      submitButton.disabled = false;
-                      submitButton.textContent = originalButtonText;
-                  }
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
               });
         });
     }
